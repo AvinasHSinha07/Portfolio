@@ -10,72 +10,118 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     id: 1,
-    title: "Cinematic Web Experience",
-    category: "Frontend Project",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2560&auto=format&fit=crop",
-    shortDesc: "A high-performance portfolio with immersive scroll animations.",
+    title: "FOODHUB",
+    category: "Full Stack Application",
+    image: "https://i.ibb.co.com/hPdYYJz/Foodhub.webp",
+    shortDesc: "A complete food delivery platform with modern UI/UX.",
     tech: [
-      { name: "Next.js", icon: PlaySquare }, 
-      { name: "GSAP", icon: Layers }, 
-      { name: "Tailwind", icon: Code2 }
+      { name: "React", icon: PlaySquare }, 
+      { name: "Tailwind", icon: Layers }, 
+      { name: "Node.js", icon: Server }
     ],
-    fullDesc: "Built a fully immersive, cinematic web experience designed to showcase high-level frontend architecture. The interface focuses on smooth page transitions, detailed micro-interactions, and heavy reliance on hardware-accelerated animations to maintain 60fps.",
+    fullDesc: "FOODHUB is a dynamic and responsive food ordering platform. It features an intuitive, appetizing user interface combined with robust backend services to handle ordering and delivery logistics smoothly.",
     features: [
-      "Custom Lenis integration for butter-smooth scrolling",
-      "GSAP ScrollTrigger for complex timeline animations",
-      "Dynamic data fetching with caching layers",
-      "Fully responsive and touch-optimized"
+      "Dynamic menu rendering with category filtering",
+      "Seamless checkout process",
+      "Fully responsive and mobile-first design",
+      "High-quality imagery and smooth animations"
     ],
-    challenges: "Synchronizing GSAP timelines with React's component lifecycle and maintaining performance while rendering multiple heavy graphic elements at once.",
-    improvements: "Plan to integrate WebGL for even more advanced background distortions and 3D visual elements.",
+    challenges: "Building an engaging shopping cart experience with instantaneous updates without compromising on performance.",
+    improvements: "Plan to integrate real-time driver tracking and AI-based food recommendations based on past orders.",
     github: "#",
-    live: "#"
+    live: "https://foodhub-frontend-vyqi.vercel.app/"
   },
   {
     id: 2,
-    title: "Enterprise E-Commerce API",
-    category: "Backend Project",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2560&auto=format&fit=crop",
-    shortDesc: "Scalable automated backend architecture for high-volume sales.",
+    title: "CardTrade",
+    category: "E-Commerce / Trading Platform",
+    image: "https://i.ibb.co.com/BvgP73R/Card-Trade.webp",
+    shortDesc: "A dedicated platform for trading and collecting cards securely.",
     tech: [
-      { name: "Node.js", icon: Server }, 
-      { name: "PostgreSQL", icon: Database }, 
-      { name: "Redis", icon: Cloud }
+      { name: "Next.js", icon: Code2 }, 
+      { name: "Tailwind CSS", icon: Layers }, 
+      { name: "API Integration", icon: Database }
     ],
-    fullDesc: "An enterprise-grade RESTful API built to handle thousands of concurrent transactions. Designed with a microservices-ready architecture, featuring robust authentication, rate limiting, and an integrated caching layer.",
+    fullDesc: "CardTrade provides a secure, sleek interface for enthusiasts to buy, sell, and trade collectible cards. The application is built with speed in mind and boasts an intuitive layout for exploring vast catalogs of cards.",
     features: [
-      "JWT-based role authentication and authorization",
-      "Redis caching reducing database load by 70%",
-      "Stripe payment gateway integration",
-      "Automated CI/CD pipeline deployment"
+      "Advanced filtering and search capabilities",
+      "Secure authentication and user profiles",
+      "Real-time market valuation displays",
+      "Optimized image delivery for fast load times"
     ],
-    challenges: "Handling database concurrency and race conditions during high-traffic flash sales events.",
-    improvements: "Migrating to a serverless architecture or Kubernetes cluster for better auto-scaling capabilities.",
+    challenges: "Handling vast amounts of high-resolution images while keeping the Lighthouse scores in the 90s.",
+    improvements: "Looking to introduce an auction system with live bidding via WebSockets.",
     github: "#",
-    live: "#"
+    live: "https://card-trade-website.vercel.app/"
   },
   {
     id: 3,
-    title: "Market Insight Engine",
-    category: "Scraping Project",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2560&auto=format&fit=crop",
-    shortDesc: "Distributed web scraper breaking through difficult anti-bot systems.",
+    title: "Modern Immigration",
+    category: "Corporate Website",
+    image: "https://i.ibb.co.com/BHq1Fd8C/Immigration.webp",
+    shortDesc: "A professional and accessible immigration consulting portal.",
     tech: [
-      { name: "Python", icon: Code2 }, 
-      { name: "Selenium", icon: Globe }, 
-      { name: "Pandas", icon: Bot }
+      { name: "React", icon: PlaySquare }, 
+      { name: "GSAP", icon: Globe }, 
+      { name: "Tailwind", icon: Code2 }
     ],
-    fullDesc: "Developed an advanced data extraction pipeline capable of bypassing sophisticated anti-bot protections like Cloudflare. It processes thousands of pages daily to generate structured machine-learning-ready datasets.",
+    fullDesc: "An elegant, trust-inspiring website crafted for an immigration consultancy. The site focuses on clear navigation, accessibility, and providing users with critical information effortlessly.",
     features: [
-      "Headless automated browsing with rotating proxy pools",
-      "CAPTCHA solving integration",
-      "Data cleaning and normalization using Pandas",
-      "Automated export to BigQuery"
+      "High contrast, readable, and professional UI",
+      "Smooth scroll animations guided by GSAP",
+      "Multi-language support architecture",
+      "Interactive consultation booking system"
     ],
-    challenges: "Adapting to constantly changing DOM structures and reverse-engineering complex API endpoints that were heavily obfuscated.",
-    improvements: "Implement a fully distributed task queue using Celery and Redis to speed up extraction.",
+    challenges: "Balancing creative animations with total accessibility and professional corporate aesthetics.",
+    improvements: "Implement a client portal for secure document uploads and status tracking.",
     github: "#",
-    live: "#"
+    live: "https://modern-immigration-website.vercel.app/"
+  },
+  {
+    id: 4,
+    title: "Euro TSI CCTV Consultation",
+    category: "Landing Page Redesign",
+    image: "https://i.ibb.co.com/DPY6rqyS/EURO-CCTV-CONSULTATION.webp",
+    shortDesc: "A high-conversion consultation landing page for security solutions.",
+    tech: [
+      { name: "Next.js", icon: PlaySquare }, 
+      { name: "Framer Motion", icon: Bot }, 
+      { name: "Tailwind CSS", icon: Code2 }
+    ],
+    fullDesc: "A targeted redesign of the Euro TSI CCTV Consultation page to significantly boost engagement and conversion rates. The page uses authoritative styling, clear calls-to-action, and optimized loading speeds.",
+    features: [
+      "Action-oriented layout for maximum conversions",
+      "Engaging entrance animations on scroll",
+      "Responsive video background integration",
+      "Dynamic contact forms with instant validation"
+    ],
+    challenges: "Making the lead-generation forms friction-less without losing critical customer data points.",
+    improvements: "Integrate A/B testing frameworks directly to optimize CTA buttons automatically.",
+    github: "#",
+    live: "https://euro-tsi-redesign.vercel.app/"
+  },
+  {
+    id: 5,
+    title: "Tesla Page Redesign",
+    category: "UI/UX Concept",
+    image: "https://i.ibb.co.com/xt2rhxbd/Tesla-Page.webp",
+    shortDesc: "An immersive, high-end conceptual redesign of the Tesla homepage.",
+    tech: [
+      { name: "React", icon: PlaySquare }, 
+      { name: "Three.js", icon: Cloud }, 
+      { name: "GSAP", icon: Globe }
+    ],
+    fullDesc: "A conceptual redesign paying homage to Tesla's clean, futuristic brand. The project features heavy animation, stark contrasts, and immersive media components that mimic the aesthetic of modern electric vehicles.",
+    features: [
+      "Smooth hardware-accelerated scroll snapping",
+      "Full-screen high definition video backgrounds",
+      "Minimalist, typography-driven UI",
+      "Interactive 3D model showcase elements"
+    ],
+    challenges: "Replicating seamless scroll-jacking and complex layer reveals without tanking browser performance.",
+    improvements: "Add fully interactive car configuration with real-time material swapping using WebGL.",
+    github: "#",
+    live: "https://tesla-jade.vercel.app/"
   }
 ];
 
@@ -175,7 +221,7 @@ export default function Projects() {
                   onClick={(e) => { e.stopPropagation(); setSelectedProject(proj); }}
                   className="w-full py-3 flex items-center justify-center gap-2 bg-prussian-blue/40 border border-dusty-denim/30 group-hover:bg-dusty-denim group-hover:text-ink-black group-hover:border-dusty-denim hover:shadow-[0_0_15px_rgba(119,141,169,0.5)] text-white rounded-xl transition-all duration-300 font-semibold mt-auto"
                 >
-                  View Case Study <Plus size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                  View Details <Plus size={18} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
               </div>
             </div>

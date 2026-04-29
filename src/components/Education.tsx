@@ -5,16 +5,16 @@ import { GraduationCap, BookOpen, Scroll, Award } from 'lucide-react';
 const educationData = [
   {
     degree: "Master of Science (MSc)",
-    major: "Computer Science",
-    institution: "University Placeholder",
+    major: "Computer Science and Engineering",
+    institution: "University of Chittagong",
     year: "2023 - Present",
     icon: Award,
     description: "Specializing in advanced software engineering, distributed systems, and modern web architectures."
   },
   {
     degree: "Bachelor of Science (BSc)",
-    major: "Computer Science",
-    institution: "University Placeholder",
+    major: "Computer Science and Engineering",
+    institution: "University of Chittagong",
     year: "2019 - 2023",
     icon: GraduationCap,
     description: "Focused on algorithms, data structures, and foundational software engineering principles."
@@ -22,7 +22,7 @@ const educationData = [
   {
     degree: "Higher Secondary (HSC)",
     major: "Science",
-    institution: "College Placeholder",
+    institution: "Sylhet Government College",
     year: "2017 - 2019",
     icon: BookOpen,
     description: "Science track with strong emphasis on Mathematics and logical problem solving."
@@ -30,7 +30,7 @@ const educationData = [
   {
     degree: "Secondary School (SSC)",
     major: "General Science",
-    institution: "School Placeholder",
+    institution: "Sylhet Govt. Pilot High School",
     year: "2015 - 2017",
     icon: Scroll,
     description: "General Science background establishing strong analytical skills."
