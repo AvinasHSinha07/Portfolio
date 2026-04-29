@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { Send, Phone, Mail, Github, Linkedin, Twitter, Facebook } from 'lucide-react';
 import { motion } from 'motion/react';
 
-const MagneticButton = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+const MagneticButton = ({ children, className, type = "button" }: { children: React.ReactNode, className?: string, type?: "button" | "submit" | "reset" }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -25,7 +25,7 @@ const MagneticButton = ({ children, className }: { children: React.ReactNode, cl
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={className}
-      type="button"
+      type={type}
     >
       {children}
     </motion.button>
@@ -117,12 +117,15 @@ export default function Contact() {
 
           {/* Form */}
           <div className="lg:col-span-7 contact-elem">
-            <form className="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] flex flex-col gap-6 h-full">
+            <form name="contact" method="POST" data-netlify="true" className="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] flex flex-col gap-6 h-full">
+              <input type="hidden" name="form-name" value="contact" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-alabaster-grey/60 ml-2">Your Name</label>
                   <input 
                     type="text" 
+                    name="name"
+                    required
                     placeholder="John Doe"
                     className="w-full bg-white/5 border border-white/5 focus:border-white/20 rounded-2xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:bg-white/10 transition-all font-sans"
                   />
@@ -131,6 +134,8 @@ export default function Contact() {
                   <label className="text-sm font-medium text-alabaster-grey/60 ml-2">Email Address</label>
                   <input 
                     type="email" 
+                    name="email"
+                    required
                     placeholder="john@example.com"
                     className="w-full bg-white/5 border border-white/5 focus:border-white/20 rounded-2xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:bg-white/10 transition-all font-sans"
                   />
@@ -140,12 +145,14 @@ export default function Contact() {
               <div className="space-y-2 flex-grow flex flex-col">
                 <label className="text-sm font-medium text-alabaster-grey/60 ml-2">Your Message</label>
                 <textarea 
+                  name="message"
+                  required
                   placeholder="Tell me about your project..."
                   className="w-full grow min-h-[160px] bg-white/5 border border-white/5 focus:border-white/20 rounded-2xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:bg-white/10 transition-all font-sans resize-none"
                 />
               </div>
               
-              <MagneticButton className="w-full mt-2">
+              <MagneticButton type="submit" className="w-full mt-2">
                 <div className="w-full py-4 bg-white text-[#020617] font-semibold rounded-2xl hover:scale-[0.98] transition-transform flex items-center justify-center gap-2">
                   Send Message <Send size={18} />
                 </div>
