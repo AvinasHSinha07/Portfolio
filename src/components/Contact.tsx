@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Send, Phone, Mail, Github, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Send, Phone, Mail, Github, Linkedin, Twitter, Facebook, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
-const MagneticButton = ({ children, className, type = "button" }: { children: React.ReactNode, className?: string, type?: "button" | "submit" | "reset" }) => {
+const MagneticButton = ({ children, className, type = "button", disabled }: { children: React.ReactNode, className?: string, type?: "button" | "submit" | "reset", disabled?: boolean }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouse = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (disabled) return;
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
@@ -24,8 +25,9 @@ const MagneticButton = ({ children, className, type = "button" }: { children: Re
       onMouseLeave={reset}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      className={className}
+      className={`${className} ${disabled ? 'opacity-80 cursor-not-allowed' : ''}`}
       type={type}
+      disabled={disabled}
     >
       {children}
     </motion.button>
@@ -34,6 +36,34 @@ const MagneticButton = ({ children, className, type = "button" }: { children: Re
 
 export default function Contact() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      
+      if (response.ok) {
+        setStatus('success');
+        (e.target as HTMLFormElement).reset();
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      }
+    } catch (err) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -117,7 +147,7 @@ export default function Contact() {
 
           {/* Form */}
           <div className="lg:col-span-7 contact-elem">
-            <form name="contact" method="POST" data-netlify="true" className="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] flex flex-col gap-6 h-full">
+            <form onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true" className="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] flex flex-col gap-6 h-full">
               <input type="hidden" name="form-name" value="contact" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -152,9 +182,21 @@ export default function Contact() {
                 />
               </div>
               
-              <MagneticButton type="submit" className="w-full mt-2">
-                <div className="w-full py-4 bg-white text-[#020617] font-semibold rounded-2xl hover:scale-[0.98] transition-transform flex items-center justify-center gap-2">
-                  Send Message <Send size={18} />
+              <MagneticButton type="submit" className="w-full mt-2" disabled={status === 'submitting'}>
+                <div className={`w-full py-4 font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 ${
+                  status === 'success' ? 'bg-green-500 text-white' : 
+                  status === 'error' ? 'bg-red-500 text-white' : 
+                  'bg-white text-[#020617] hover:scale-[0.98]'
+                }`}>
+                  {status === 'submitting' ? (
+                    <><Loader2 size={18} className="animate-spin" /> Sending...</>
+                  ) : status === 'success' ? (
+                    <><CheckCircle2 size={18} /> Message Sent!</>
+                  ) : status === 'error' ? (
+                    <><AlertCircle size={18} /> Error Sending</>
+                  ) : (
+                    <>Send Message <Send size={18} /></>
+                  )}
                 </div>
               </MagneticButton>
             </form>
