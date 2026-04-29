@@ -6,13 +6,13 @@ export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  
+
   const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
   const cursorX = useSpring(-100, springConfig);
   const cursorY = useSpring(-100, springConfig);
 
   useEffect(() => {
-    
+
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -24,12 +24,12 @@ export default function CustomCursor() {
 
     const handleHoverDelegation = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       if (
-        target.closest('a') || 
-        target.closest('button') || 
-        target.closest('input') || 
-        target.closest('textarea') || 
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('input') ||
+        target.closest('textarea') ||
         target.closest('.interactive-hover')
       ) {
         setIsHovered(true);
@@ -72,12 +72,12 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       />
-      
+
       {/* Exact Center Dot */}
       <motion.div
         className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[10000] hidden lg:block mix-blend-difference"
-        animate={{ 
-          x: mousePosition.x, 
+        animate={{
+          x: mousePosition.x,
           y: mousePosition.y,
           translateX: "-50%",
           translateY: "-50%",

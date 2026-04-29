@@ -101,7 +101,7 @@ export default function Navbar() {
         (scrolled || mobileOpen) ? "bg-[#020617]/90 backdrop-blur-xl border border-white/10" : "bg-transparent"
       )}>
         <a href="#home" className="text-xl font-display font-bold tracking-tight text-white">
-          AS.
+          Avinash Sinha
         </a>
         <button 
           className="text-alabaster-grey hover:text-white transition-colors p-2"
