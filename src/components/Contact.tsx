@@ -44,7 +44,8 @@ export default function Contact() {
     e.preventDefault();
     setStatus('submitting');
     
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     
     try {
       const response = await fetch('/', {
@@ -54,24 +55,14 @@ export default function Contact() {
       });
       
       if (response.ok) {
-        toast.success("Message sent successfully! I'll get back to you soon.", {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        (e.target as HTMLFormElement).reset();
-        setStatus('idle');
+        toast("🚀 Message sent successfully! I'll be in touch soon.");
+        form.reset();
       } else {
-        toast.error("Failed to send message. Please try again.");
-        setStatus('idle');
+        toast("❌ Failed to send message. Please try again.");
       }
     } catch (err) {
-      toast.error("Network error. Please check your connection.");
+      toast("⚠️ Network error. (Note: Netlify forms only work in production)");
+    } finally {
       setStatus('idle');
     }
   };
@@ -96,7 +87,13 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-32 relative overflow-x-clip bg-[#020617]" ref={sectionRef}>
-      <ToastContainer />
+      <ToastContainer 
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={true}
+        closeButton={false}
+        toastClassName={() => "relative flex p-4 mb-4 rounded-2xl justify-between overflow-hidden cursor-pointer bg-white/5 border border-white/10 text-white shadow-2xl backdrop-blur-md font-sans text-sm font-medium"}
+      />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
         <div className="text-center mb-16 contact-elem">
           <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-4 break-words tracking-tight">
