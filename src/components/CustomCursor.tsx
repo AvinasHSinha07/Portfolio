@@ -58,8 +58,9 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Springy Inverted Spotlight */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-dusty-denim pointer-events-none z-[9999] mix-blend-screen hidden lg:block"
+        className="fixed top-0 left-0 w-10 h-10 rounded-full bg-white mix-blend-difference pointer-events-none z-[9999] hidden lg:block"
         style={{
           x: cursorX,
           y: cursorY,
@@ -67,20 +68,21 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.8 : 1,
-          backgroundColor: isHovered ? "rgba(119,141,169,0.1)" : "rgba(0,0,0,0)"
+          scale: isHovered ? 2.5 : 0.4,
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       />
+      
+      {/* Exact Center Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-dusk-blue pointer-events-none z-[9999] mix-blend-screen hidden lg:block"
+        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[10000] hidden lg:block mix-blend-difference"
         animate={{ 
           x: mousePosition.x, 
           y: mousePosition.y,
           translateX: "-50%",
           translateY: "-50%",
-          scale: isHovered ? 0 : 1,
-          opacity: isHovered ? 0 : 1
+          opacity: isHovered ? 0 : 1,
+          scale: isHovered ? 0 : 1
         }}
         transition={{ type: "spring", stiffness: 1000, damping: 28 }}
       />
