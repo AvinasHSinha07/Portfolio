@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Download, ArrowRight, Github, Linkedin, Facebook, Twitter, Mail, MapPin, TerminalSquare } from 'lucide-react';
+import { Download, ArrowRight, Github, Linkedin, Facebook, Twitter, Mail, MapPin, TerminalSquare, Code2, Database } from 'lucide-react';
 import gsap from 'gsap';
 
 const designations = [
@@ -17,6 +17,15 @@ const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/share/1BVqWMXo4b/", name: "Facebook" },
   { icon: Twitter, href: "https://twitter.com/avinashsinha", name: "Twitter" },
   { icon: Mail, href: "mailto:avinashsinha751@gmail.com", name: "Email" },
+];
+
+const codeLines = [
+  <><span className="text-pink-400 font-semibold">const</span> <span className="text-blue-400">profile</span> <span className="text-white/60">=</span> <span className="text-white/60">&#123;</span></>,
+  <>&nbsp;&nbsp;<span className="text-sky-300">name</span><span className="text-white/60">:</span> <span className="text-green-300">'Avinash Sinha'</span><span className="text-white/60">,</span></>,
+  <>&nbsp;&nbsp;<span className="text-sky-300">role</span><span className="text-white/60">:</span> <span className="text-green-300">'Full Stack Engineer'</span><span className="text-white/60">,</span></>,
+  <>&nbsp;&nbsp;<span className="text-sky-300">focus</span><span className="text-white/60">:</span> <span className="text-green-300">'Building scalable web apps'</span><span className="text-white/60">,</span></>,
+  <>&nbsp;&nbsp;<span className="text-sky-300">passion</span><span className="text-white/60">:</span> <span className="text-green-300">'Clean code & intuitive UX'</span><span className="text-white/60">,</span></>,
+  <><span className="text-white/60">&#125;;</span></>
 ];
 
 const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => {
@@ -82,7 +91,15 @@ const MagneticButton = ({ children, className }: { children: React.ReactNode, cl
 
 export default function Hero() {
   const [currentDesignation, setCurrentDesignation] = useState(0);
+  const [codeKey, setCodeKey] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCodeKey((prev) => prev + 1);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -198,36 +215,95 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Content - Interactive Portrait Card */}
-        <div className="relative flex justify-center lg:justify-end z-10 lg:col-span-5 mt-12 lg:mt-0 hero-anim">
-          <SpotlightCard className="w-full max-w-sm aspect-[4/5] p-3 flex flex-col group">
-             {/* Main Image Container */}
-             <div className="relative flex-1 rounded-[2rem] overflow-hidden bg-[#0b1121]">
+        {/* Right Content - Portrait & Floating Code */}
+        <div className="relative flex justify-center lg:justify-end z-10 lg:col-span-5 mt-16 lg:mt-0 hero-anim">
+          
+          {/* Subtle background glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-dusty-denim/20 to-transparent blur-[80px] -z-10 rounded-full pointer-events-none" />
+
+          {/* Main Portrait Card */}
+          <SpotlightCard className="w-full max-w-[22rem] lg:max-w-[25rem] aspect-[3/4] p-2 flex flex-col group relative z-20">
+             <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0f1d] border border-white/5">
                 <img 
                   src="https://i.ibb.co.com/nMX5F3d8/Gemini-Generated-Image-agmabeagmabeagma.png" 
                   alt="Avinash Sinha" 
-                  className="w-full h-full object-cover filter saturate-100 contrast-110 transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover filter contrast-[1.05] brightness-95 transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-80" />
-                
-                {/* Location overlay */}
-                <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
-                   <MapPin size={14} className="text-dusty-denim" />
-                   <span className="text-xs font-medium text-white">Based in Global</span>
-                </div>
-             </div>
-             
-             {/* Bottom Info Bar inside Card */}
-             <div className="h-20 mt-3 rounded-[2rem] bg-white/[0.03] border border-white/5 flex items-center justify-between px-6">
-                <div className="flex flex-col">
-                   <span className="text-sm font-semibold text-white">Avinash Sinha</span>
-                   <span className="text-xs text-alabaster-grey/60">Software Engineer</span>
-                </div>
-                <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center border border-white/5">
-                   <TerminalSquare size={18} className="text-dusty-denim" />
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
              </div>
           </SpotlightCard>
+
+          {/* Floating Code Snippet Overlay */}
+          <motion.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            className="absolute -left-2 lg:-left-20 bottom-8 md:bottom-12 w-[17.5rem] md:w-[22rem] rounded-2xl overflow-hidden bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 cursor-pointer transition-all duration-300 hover:border-white/20"
+          >
+            <div className="h-9 bg-white/5 flex items-center px-4 border-b border-white/5">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-red-500/80 border border-red-500/50" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-500/50" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80 border border-green-500/50" />
+              </div>
+              <div className="ml-auto flex items-center gap-2">
+                 <TerminalSquare size={12} className="text-white/40" />
+                 <span className="text-[11px] text-white/50 font-mono tracking-wider">developer.ts</span>
+              </div>
+            </div>
+            <div className="p-3 md:p-4 text-[10px] md:text-[12px] font-mono leading-[1.7] w-full relative h-[145px]">
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={codeKey}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0 p-3 md:p-4"
+                >
+                  {codeLines.map((line, index) => (
+                    <div key={index} className="flex px-2 hover:bg-white/5 rounded-md transition-colors group/line items-center overflow-hidden">
+                      <span className="text-white/20 w-4 shrink-0 select-none text-right mr-3 group-hover/line:text-white/40 transition-colors">{index + 1}</span>
+                      <motion.div
+                        initial={{ clipPath: "inset(0 100% 0 0)", filter: "blur(4px)" }}
+                        animate={{ clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
+                        transition={{ delay: 0.2 + (index * 0.3), duration: 0.5, ease: "easeOut" }}
+                        className="inline-block whitespace-nowrap"
+                      >
+                        {line}
+                      </motion.div>
+                    </div>
+                  ))}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 + (codeLines.length * 0.3) }}
+                    className="flex px-2 mt-1 items-center"
+                  >
+                    <span className="text-white/20 w-4 shrink-0 select-none text-right mr-3">{codeLines.length + 1}</span>
+                    <span className="animate-pulse bg-sky-400/80 w-1.5 h-3.5 inline-block" />
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+
+          {/* Floating Availability Badge */}
+          <motion.div 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="absolute -right-2 lg:-right-8 top-16 bg-[#0a0f1d]/80 backdrop-blur-xl border border-white/10 p-3 rounded-2xl shadow-2xl flex items-center gap-3 z-30"
+          >
+            <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            </div>
+            <div className="flex flex-col pr-2">
+              <span className="text-[10px] text-white/50 font-medium uppercase tracking-wider">Status</span>
+              <span className="text-xs font-bold text-white">Available</span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
