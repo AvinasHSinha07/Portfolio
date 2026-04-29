@@ -1,115 +1,100 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { GraduationCap } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
+import { GraduationCap, BookOpen, Scroll, Award } from 'lucide-react';
 
 const educationData = [
   {
-    degree: "Master of Science (MSc) in Computer Science",
+    degree: "Master of Science (MSc)",
+    major: "Computer Science",
     institution: "University Placeholder",
     year: "2023 - Present",
+    icon: Award,
     description: "Specializing in advanced software engineering, distributed systems, and modern web architectures."
   },
   {
-    degree: "Bachelor of Science (BSc) in Computer Science",
+    degree: "Bachelor of Science (BSc)",
+    major: "Computer Science",
     institution: "University Placeholder",
     year: "2019 - 2023",
+    icon: GraduationCap,
     description: "Focused on algorithms, data structures, and foundational software engineering principles."
   },
   {
-    degree: "Higher Secondary Certificate (HSC)",
+    degree: "Higher Secondary (HSC)",
+    major: "Science",
     institution: "College Placeholder",
     year: "2017 - 2019",
+    icon: BookOpen,
     description: "Science track with strong emphasis on Mathematics and logical problem solving."
   },
   {
-    degree: "Secondary School Certificate (SSC)",
+    degree: "Secondary School (SSC)",
+    major: "General Science",
     institution: "School Placeholder",
     year: "2015 - 2017",
+    icon: Scroll,
     description: "General Science background establishing strong analytical skills."
   }
 ];
 
 export default function Education() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      // Timeline line animation
-      gsap.fromTo(lineRef.current, 
-        { scaleY: 0, transformOrigin: "top" },
-        { 
-          scaleY: 1, 
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            end: "bottom 80%",
-            scrub: 1
-          }
-        }
-      );
-
-      // Items animation
-      gsap.utils.toArray('.edu-card').forEach((card: any, i) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-          },
-          x: i % 2 === 0 ? -50 : 50,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out"
-        });
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="education" className="py-24 relative overflow-x-clip" ref={sectionRef}>
-      <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-12">
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white relative inline-flex items-center gap-4">
-            <GraduationCap className="text-dusty-denim" size={40} />
-            Education
-            <div className="absolute -bottom-3 left-1/4 w-1/2 h-1 bg-linear-to-r from-transparent via-dusk-blue to-transparent rounded-full" />
-          </h2>
-        </div>
-
-        <div className="relative overflow-x-clip">
-          {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-prussian-blue/50 rounded-full md:-translate-x-1/2">
-             <div ref={lineRef} className="absolute top-0 bottom-0 left-0 right-0 bg-linear-to-b from-dusk-blue to-dusty-denim rounded-full" />
+    <section id="education" className="py-32 relative" ref={containerRef}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+        <motion.div 
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-[2px] w-8 bg-dusty-denim rounded-full"></span>
+              <span className="text-dusty-denim font-mono text-sm tracking-widest uppercase">Education</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
+              Academic Path
+            </h2>
           </div>
+          <p className="text-alabaster-grey/60 max-w-sm text-sm leading-relaxed">
+            My foundational learning, degrees, and academic milestones from high school right up to my postgraduate studies.
+          </p>
+        </motion.div>
 
-          <div className="space-y-12">
-            {educationData.map((item, idx) => (
-              <div key={idx} className={`edu-card relative flex flex-col md:flex-row gap-8 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                
-                {/* Timeline Dot */}
-                <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-ink-black border-4 border-dusty-denim transform -translate-x-1.5 md:-translate-x-1/2 mt-6 md:mt-8 z-10 shadow-[0_0_15px_rgba(119,141,169,0.8)]" />
-
-                {/* Content */}
-                <div className="md:w-1/2 pl-12 md:pl-0 pt-2 md:pt-0">
-                  <div className={`glass-card p-6 md:p-8 rounded-3xl transition-transform hover:-translate-y-1 hover:shadow-2xl hover:border-dusty-denim/50 ${idx % 2 === 0 ? 'md:mr-10' : 'md:ml-10'}`}>
-                    <span className="inline-block px-3 py-1 bg-prussian-blue rounded-full text-xs font-semibold text-dusty-denim tracking-wider mb-4 border border-white/5">
-                      {item.year}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-2">{item.degree}</h3>
-                    <h4 className="text-lg text-dusk-blue font-medium mb-4">{item.institution}</h4>
-                    <p className="text-alabaster-grey/70 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {educationData.map((item, idx) => (
+            <motion.div 
+              key={idx} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="group relative p-8 rounded-3xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:scale-110 group-hover:bg-dusk-blue/10 transition-all duration-500">
+                  <item.icon size={22} className="text-dusty-denim" />
                 </div>
-                
-                <div className="hidden md:block md:w-1/2" />
+                <span className="font-mono text-xs text-white/50 px-3 py-1 bg-white/5 rounded-full">
+                  {item.year}
+                </span>
               </div>
-            ))}
-          </div>
+              
+              <h3 className="text-2xl font-display font-bold text-white mb-1">
+                {item.degree}
+              </h3>
+              <div className="text-dusty-denim text-sm font-medium mb-4">
+                {item.major} <span className="text-white/30 mx-2">•</span> {item.institution}
+              </div>
+              
+              <p className="text-alabaster-grey/70 text-sm leading-relaxed">
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

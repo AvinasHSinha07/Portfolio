@@ -6,13 +6,13 @@ export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Smooth out the position for the outer ring using useSpring
+  
   const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
   const cursorX = useSpring(-100, springConfig);
   const cursorY = useSpring(-100, springConfig);
 
   useEffect(() => {
-    // Only show on desktop devices with a fine pointer
+    
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -24,7 +24,7 @@ export default function CustomCursor() {
 
     const handleHoverDelegation = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if hovering over interactive elements
+      
       if (
         target.closest('a') || 
         target.closest('button') || 
