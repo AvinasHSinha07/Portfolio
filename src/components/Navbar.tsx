@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -7,12 +7,34 @@ const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
-  { name: 'Education', href: '#education' },
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
-  { name: 'Reviews', href: '#reviews' },
   { name: 'Contact', href: '#contact' },
 ];
+
+const MagneticItem = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current!.getBoundingClientRect();
+    setPosition({ x: (clientX - (left + width / 2)) * 0.2, y: (clientY - (top + height / 2)) * 0.2 });
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouse}
+      onMouseLeave={() => setPosition({ x: 0, y: 0 })}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,127 +43,101 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
+      setScrolled(window.scrollY > 20);
       const sections = document.querySelectorAll('section[id]');
-      const scrollY = window.scrollY;
-      
       sections.forEach(current => {
         const sectionHeight = (current as HTMLElement).offsetHeight;
-        const sectionTop = (current as HTMLElement).offsetTop - 100;
+        const sectionTop = (current as HTMLElement).offsetTop - 200;
         const sectionId = current.getAttribute('id');
-        
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
           const matchingLink = navLinks.find(link => link.href.substring(1) === sectionId);
-          if (matchingLink) {
-            setActive(matchingLink.name);
-          }
+          if (matchingLink) setActive(matchingLink.name);
         }
       });
     };
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMobileOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [mobileOpen]);
 
   return (
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled ? "py-4 bg-ink-black/80 backdrop-blur-md border-b border-prussian-blue/50 shadow-lg shadow-black/20" : "py-6 bg-transparent"
-      )}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 pointer-events-none"
     >
-      <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-display font-bold tracking-tighter text-alabaster-grey">
-          AS<span className="text-dusty-denim">.</span>
-        </a>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
+      {/* Desktop Floating Nav */}
+      <div className={cn(
+        "hidden md:flex items-center gap-2 px-3 py-2.5 rounded-full transition-all duration-500 pointer-events-auto shadow-2xl",
+        scrolled ? "bg-white/[0.03] backdrop-blur-xl border border-white/10" : "bg-transparent border border-transparent"
+      )}>
+        {navLinks.map((link) => (
+          <MagneticItem key={link.name}>
             <a 
-              key={link.name}
               href={link.href}
-              className="relative text-sm font-medium transition-colors hover:text-white"
+              className="relative px-5 py-2.5 text-sm font-medium transition-colors group block rounded-full"
             >
               <span className={cn(
-                "relative z-10 transition-colors",
-                active === link.name ? "text-white" : "text-dusty-denim"
+                "relative z-10 transition-colors duration-300",
+                active === link.name ? "text-white" : "text-alabaster-grey/70 group-hover:text-white"
               )}>
                 {link.name}
               </span>
               {active === link.name && (
                 <motion.div
-                  layoutId="navbar-indicator"
-                  className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-dusk-blue"
-                  transition={{ type: "spring", bounce: 0.25, stiffness: 130, damping: 20 }}
+                  layoutId="nav-pill"
+                  className="absolute inset-0 bg-white/10 rounded-full"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
               )}
             </a>
-          ))}
-        </div>
+          </MagneticItem>
+        ))}
+      </div>
 
-        {/* Mobile Menu Toggle */}
+      {/* Mobile Nav Header */}
+      <div className={cn(
+        "md:hidden w-full flex items-center justify-between px-6 py-4 rounded-2xl pointer-events-auto transition-all duration-300",
+        (scrolled || mobileOpen) ? "bg-[#020617]/90 backdrop-blur-xl border border-white/10" : "bg-transparent"
+      )}>
+        <a href="#home" className="text-xl font-display font-bold tracking-tight text-white">
+          AS.
+        </a>
         <button 
-          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-navigation"
-          className="md:hidden text-dusty-denim hover:text-white transition-colors"
+          className="text-alabaster-grey hover:text-white transition-colors p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
-      <motion.div 
-        id="mobile-navigation"
-        initial={false}
-        animate={{ height: mobileOpen ? 'auto' : 0, opacity: mobileOpen ? 1 : 0, y: mobileOpen ? 0 : -8 }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="md:hidden absolute left-0 right-0 top-full overflow-hidden bg-prussian-blue/98 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-black/30"
-      >
-        <div className="max-h-[calc(100vh-5rem)] overflow-y-auto px-5 sm:px-6 py-4 flex flex-col gap-2">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href}
-              className={cn(
-                "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
-                active === link.name ? "text-white" : "text-dusty-denim"
-              )}
-              onClick={() => {
-                setMobileOpen(false);
-              }}
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-      </motion.div>
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0, y: -10 }}
+            animate={{ height: 'auto', opacity: 1, y: 0 }}
+            exit={{ height: 0, opacity: 0, y: -10 }}
+            className="md:hidden absolute top-24 left-4 right-4 bg-[#020617]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden pointer-events-auto"
+          >
+            <div className="flex flex-col p-4 gap-2">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "px-4 py-3 text-sm font-medium rounded-xl transition-colors",
+                    active === link.name ? "bg-white/10 text-white" : "text-alabaster-grey/70 hover:text-white hover:bg-white/5"
+                  )}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }

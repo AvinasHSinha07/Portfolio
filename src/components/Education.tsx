@@ -42,25 +42,19 @@ export default function Education() {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="education" className="py-32 relative" ref={containerRef}>
+    <section id="education" className="py-32 relative bg-[#020617]" ref={containerRef}>
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
         <motion.div 
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
+          className="mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-[2px] w-8 bg-dusty-denim rounded-full"></span>
-              <span className="text-dusty-denim font-mono text-sm tracking-widest uppercase">Education</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">
-              Academic Path
-            </h2>
-          </div>
-          <p className="text-alabaster-grey/60 max-w-sm text-sm leading-relaxed">
-            My foundational learning, degrees, and academic milestones from high school right up to my postgraduate studies.
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tight mb-4">
+            Academic Background.
+          </h2>
+          <p className="text-alabaster-grey/60 max-w-xl mx-auto text-lg font-light">
+            My foundational learning, degrees, and academic milestones from high school to postgraduate studies.
           </p>
         </motion.div>
 
@@ -68,29 +62,30 @@ export default function Education() {
           {educationData.map((item, idx) => (
             <motion.div 
               key={idx} 
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group relative p-8 rounded-3xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300"
+              className="group relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
             >
-              <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:scale-110 group-hover:bg-dusk-blue/10 transition-all duration-500">
-                  <item.icon size={22} className="text-dusty-denim" />
+              <div className="flex justify-between items-start mb-8">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:scale-105 transition-transform duration-500">
+                  <item.icon size={24} className="text-white/80" />
                 </div>
-                <span className="font-mono text-xs text-white/50 px-3 py-1 bg-white/5 rounded-full">
+                <span className="font-mono text-xs font-semibold text-white/50 px-4 py-1.5 bg-white/5 rounded-full border border-white/5">
                   {item.year}
                 </span>
               </div>
               
-              <h3 className="text-2xl font-display font-bold text-white mb-1">
+              <h3 className="text-2xl font-display font-bold text-white mb-2">
                 {item.degree}
               </h3>
-              <div className="text-dusty-denim text-sm font-medium mb-4">
-                {item.major} <span className="text-white/30 mx-2">•</span> {item.institution}
+              <div className="text-white/60 text-sm font-medium mb-5 flex flex-col gap-1">
+                <span>{item.major}</span>
+                <span className="text-white/40">{item.institution}</span>
               </div>
               
-              <p className="text-alabaster-grey/70 text-sm leading-relaxed">
+              <p className="text-alabaster-grey/60 text-sm leading-relaxed font-light">
                 {item.description}
               </p>
             </motion.div>
