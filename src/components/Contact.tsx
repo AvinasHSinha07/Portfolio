@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Send, Phone, Mail, Github, Linkedin, Twitter, Facebook, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Phone, Mail, Github, Linkedin, Twitter, Facebook, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MagneticButton = ({ children, className, type = "button", disabled }: { children: React.ReactNode, className?: string, type?: "button" | "submit" | "reset", disabled?: boolean }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -52,16 +54,25 @@ export default function Contact() {
       });
       
       if (response.ok) {
-        setStatus('success');
+        toast.success("Message sent successfully! I'll get back to you soon.", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
         (e.target as HTMLFormElement).reset();
-        setTimeout(() => setStatus('idle'), 5000);
+        setStatus('idle');
       } else {
-        setStatus('error');
-        setTimeout(() => setStatus('idle'), 5000);
+        toast.error("Failed to send message. Please try again.");
+        setStatus('idle');
       }
     } catch (err) {
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
+      toast.error("Network error. Please check your connection.");
+      setStatus('idle');
     }
   };
 
@@ -85,6 +96,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-32 relative overflow-x-clip bg-[#020617]" ref={sectionRef}>
+      <ToastContainer />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 relative z-10">
         <div className="text-center mb-16 contact-elem">
           <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-4 break-words tracking-tight">
@@ -183,17 +195,9 @@ export default function Contact() {
               </div>
               
               <MagneticButton type="submit" className="w-full mt-2" disabled={status === 'submitting'}>
-                <div className={`w-full py-4 font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 ${
-                  status === 'success' ? 'bg-green-500 text-white' : 
-                  status === 'error' ? 'bg-red-500 text-white' : 
-                  'bg-white text-[#020617] hover:scale-[0.98]'
-                }`}>
+                <div className={`w-full py-4 font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 bg-white text-[#020617] hover:scale-[0.98]`}>
                   {status === 'submitting' ? (
                     <><Loader2 size={18} className="animate-spin" /> Sending...</>
-                  ) : status === 'success' ? (
-                    <><CheckCircle2 size={18} /> Message Sent!</>
-                  ) : status === 'error' ? (
-                    <><AlertCircle size={18} /> Error Sending</>
                   ) : (
                     <>Send Message <Send size={18} /></>
                   )}
