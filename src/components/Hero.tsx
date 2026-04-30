@@ -272,7 +272,7 @@ export default function Hero() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             whileHover={{ y: -5, scale: 1.02 }}
-            className="absolute -left-2 lg:-left-20 bottom-8 md:bottom-12 w-[17.5rem] md:w-[22rem] rounded-2xl overflow-hidden bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 cursor-pointer transition-all duration-300 hover:border-white/20"
+            className="absolute -left-2 lg:-left-24 bottom-4 md:bottom-8 w-[17.5rem] md:w-[22rem] rounded-2xl overflow-hidden bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 cursor-pointer transition-all duration-300 hover:border-white/20"
           >
             <div className="h-9 bg-white/5 flex items-center px-4 border-b border-white/5">
               <div className="flex gap-1.5">
