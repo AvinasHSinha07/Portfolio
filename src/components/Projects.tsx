@@ -13,6 +13,7 @@ const projects = [
     id: 1,
     title: "FOODHUB",
     category: "Full Stack Application",
+    filterType: "Full Stack",
     image: "https://i.ibb.co.com/hPdYYJz/Foodhub.webp",
     shortDesc: "A complete food delivery platform with modern UI/UX.",
     tech: [
@@ -36,6 +37,7 @@ const projects = [
     id: 2,
     title: "CardTrade",
     category: "E-Commerce / Trading Platform",
+    filterType: "Full Stack",
     image: "https://i.ibb.co.com/BvgP73R/Card-Trade.webp",
     shortDesc: "A dedicated platform for trading and collecting cards securely.",
     tech: [
@@ -59,6 +61,7 @@ const projects = [
     id: 3,
     title: "Modern Immigration",
     category: "Corporate Website",
+    filterType: "Frontend",
     image: "https://i.ibb.co.com/BHq1Fd8C/Immigration.webp",
     shortDesc: "A professional and accessible immigration consulting portal.",
     tech: [
@@ -82,6 +85,7 @@ const projects = [
     id: 4,
     title: "Euro TSI CCTV Consultation",
     category: "Landing Page Redesign",
+    filterType: "Frontend",
     image: "https://i.ibb.co.com/DPY6rqyS/EURO-CCTV-CONSULTATION.webp",
     shortDesc: "A high-conversion consultation landing page for security solutions.",
     tech: [
@@ -105,6 +109,7 @@ const projects = [
     id: 5,
     title: "Tesla Page Redesign",
     category: "UI/UX Concept",
+    filterType: "UI/UX",
     image: "https://i.ibb.co.com/xt2rhxbd/Tesla-Page.webp",
     shortDesc: "An immersive, high-end conceptual redesign of the Tesla homepage.",
     tech: [
@@ -128,8 +133,15 @@ const projects = [
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [activeFilter, setActiveFilter] = useState("All");
   const sectionRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
+
+  const filters = ["All", "Frontend", "Full Stack", "Web Scraping", "UI/UX", "Others"];
+
+  const filteredProjects = projects.filter((proj) =>
+    activeFilter === "All" ? true : proj.filterType === activeFilter
+  );
 
   useEffect(() => {
     if (selectedProject) {
@@ -176,13 +188,43 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((proj) => (
-            <div
-              key={proj.id}
-              className="project-card group bg-white/[0.02] border border-white/5 rounded-4xl overflow-hidden flex flex-col h-full transform transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.04] cursor-pointer"
-              onClick={() => setSelectedProject(proj)}
+        {/* Filter Bar */}
+        <div className="mb-12 flex flex-wrap gap-2 md:gap-4 items-center">
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-5 py-2 md:px-6 md:py-2.5 rounded-full text-sm md:text-base font-medium transition-colors duration-300 relative ${
+                activeFilter === filter
+                  ? "text-[#020617]"
+                  : "text-alabaster-grey/70 hover:text-white hover:bg-white/10"
+              }`}
             >
+              {activeFilter === filter && (
+                <motion.div
+                  layoutId="active-filter-bg"
+                  className="absolute inset-0 bg-white rounded-full z-0 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
+              <span className="relative z-10">{filter}</span>
+            </button>
+          ))}
+        </div>
+
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((proj) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.4, type: "spring", stiffness: 300, damping: 25 }}
+                key={proj.id}
+                className="project-card group bg-white/[0.02] border border-white/5 rounded-4xl overflow-hidden flex flex-col h-full transform transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.04] cursor-pointer"
+                onClick={() => setSelectedProject(proj)}
+              >
 
               {/* Image Container with Scroll Animation on Hover */}
               <div className="relative h-64 overflow-hidden bg-[#0a0f1d] shrink-0">
@@ -210,7 +252,7 @@ export default function Projects() {
                 <p className="text-alabaster-grey/70 font-light text-sm mb-6 grow">
                   {proj.shortDesc}
                 </p>
-
+              
                 <div className="flex flex-wrap gap-2 mb-8">
                   {proj.tech.map((t, i) => (
                     <span key={i} className="flex items-center gap-1.5 text-xs font-medium text-alabaster-grey bg-white/5 px-2.5 py-1.5 rounded-md border border-white/5 transition-colors">
@@ -232,10 +274,11 @@ export default function Projects() {
                 >
                   View Details <Plus size={18} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
-              </div>
-            </div>
-          ))}
-        </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Modal */}

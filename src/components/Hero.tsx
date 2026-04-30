@@ -152,20 +152,22 @@ export default function Hero() {
               </span>
             </h1>
 
-            <div className="h-10 hero-anim overflow-hidden flex items-center">
-              <span className="text-xl md:text-2xl font-light text-alabaster-grey mr-2">I specialize as a</span>
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={currentDesignation}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="text-xl md:text-2xl font-medium text-white inline-block bg-white/10 px-3 py-1 rounded-lg border border-white/5"
-                >
-                  {designations[currentDesignation]}
-                </motion.p>
-              </AnimatePresence>
+            <div className="flex flex-wrap items-center hero-anim gap-2">
+              <span className="text-xl md:text-2xl font-light text-alabaster-grey">I specialize as a</span>
+              <div className="overflow-hidden h-12 flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={currentDesignation}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -40, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="text-xl md:text-2xl font-medium text-white inline-block bg-white/10 px-3 py-1 rounded-lg border border-white/5"
+                  >
+                    {designations[currentDesignation]}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
             </div>
 
             <p className="text-lg text-alabaster-grey/60 max-w-lg leading-relaxed hero-anim font-light pt-2">
@@ -278,7 +280,7 @@ export default function Hero() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             whileHover={{ y: -5, scale: 1.02 }}
-            className="absolute -left-2 lg:-left-24 bottom-4 md:bottom-8 w-[17.5rem] md:w-[22rem] rounded-2xl overflow-hidden bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 cursor-pointer transition-all duration-300 hover:border-white/20"
+            className="absolute -left-2 lg:-left-24 hidden md:block md:bottom-8 w-[17.5rem] md:w-[22rem] rounded-2xl overflow-hidden bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-30 cursor-pointer transition-all duration-300 hover:border-white/20"
           >
             <div className="h-9 bg-white/5 flex items-center px-4 border-b border-white/5">
               <div className="flex gap-1.5">
