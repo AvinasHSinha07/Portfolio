@@ -60,7 +60,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -73,7 +73,7 @@ export default function Navbar() {
       )}>
         {navLinks.map((link) => (
           <MagneticItem key={link.name}>
-            <a 
+            <a
               href={link.href}
               className="relative px-5 py-2.5 text-sm font-medium transition-colors group block rounded-full"
             >
@@ -103,7 +103,7 @@ export default function Navbar() {
         <a href="#home" className="text-xl font-display font-bold tracking-tight text-white">
           Avinash Sinha
         </a>
-        <button 
+        <button
           className="text-alabaster-grey hover:text-white transition-colors p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
@@ -114,7 +114,7 @@ export default function Navbar() {
       {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div 
+          <motion.div
             initial={{ height: 0, opacity: 0, y: -10 }}
             animate={{ height: 'auto', opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: -10 }}
@@ -122,7 +122,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col p-4 gap-2">
               {navLinks.map((link) => (
-                <a 
+                <a
                   key={link.name}
                   href={link.href}
                   className={cn(

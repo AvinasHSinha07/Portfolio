@@ -110,18 +110,18 @@ export default function Hero() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.fromTo(".hero-anim", 
-        { y: 30, opacity: 0 }, 
+      gsap.fromTo(".hero-anim",
+        { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.1 }
       );
     }, heroRef);
-    
+
     return () => ctx.revert();
   }, []);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#020617]" ref={heroRef}>
-      
+
       {/* Refined Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-dusk-blue/10 to-transparent"></div>
@@ -129,9 +129,9 @@ export default function Hero() {
         <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-dusk-blue/5 rounded-full blur-[120px] mix-blend-screen"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-dusty-denim/5 rounded-full blur-[100px] mix-blend-screen"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center relative z-10">
-        
+
         {/* Left Content */}
         <div className="flex flex-col space-y-8 z-10 mt-10 md:mt-0 lg:col-span-7">
           <div className="space-y-5">
@@ -144,30 +144,30 @@ export default function Hero() {
                 <span className="text-[13px] font-medium tracking-wide text-alabaster-grey/90">Available for Opportunities</span>
               </div>
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-display font-bold tracking-tight leading-[1.05] text-white hero-anim relative">
-              Software <br/>
+              Software <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-dusty-denim to-alabaster-grey">
                 Engineer.
               </span>
             </h1>
-            
+
             <div className="h-10 hero-anim overflow-hidden flex items-center">
               <span className="text-xl md:text-2xl font-light text-alabaster-grey mr-2">I specialize as a</span>
               <AnimatePresence mode="wait">
-                 <motion.p 
-                    key={currentDesignation}
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -20, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="text-xl md:text-2xl font-medium text-white inline-block bg-white/10 px-3 py-1 rounded-lg border border-white/5"
-                  >
-                    {designations[currentDesignation]}
-                  </motion.p>
+                <motion.p
+                  key={currentDesignation}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="text-xl md:text-2xl font-medium text-white inline-block bg-white/10 px-3 py-1 rounded-lg border border-white/5"
+                >
+                  {designations[currentDesignation]}
+                </motion.p>
               </AnimatePresence>
             </div>
-            
+
             <p className="text-lg text-alabaster-grey/60 max-w-lg leading-relaxed hero-anim font-light pt-2">
               My name is <strong className="font-semibold text-white">Avinash Sinha</strong>. I craft highly interactive, scalable web applications focusing on elegant architecture, seamless user experiences, and clean code.
             </p>
@@ -175,7 +175,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap items-center gap-5 hero-anim pt-6">
             <MagneticButton>
-              <a 
+              <a
                 href="#projects"
                 className="group relative inline-flex items-center justify-center gap-3 px-7 py-3.5 font-medium text-[#020617] bg-white rounded-full overflow-hidden transition-transform active:scale-95 shadow-xl hover:shadow-white/20"
               >
@@ -184,9 +184,9 @@ export default function Hero() {
                 </span>
               </a>
             </MagneticButton>
-            
+
             <MagneticButton>
-              <a 
+              <a
                 href="https://drive.google.com/file/d/1_esSMO5sHf9-bKyfUk7sedXIq-MQqsxc/view?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
@@ -201,7 +201,7 @@ export default function Hero() {
           <div className="flex items-center gap-4 pt-8 hero-anim border-t border-white/5 mt-8 max-w-md">
             {socialLinks.map((social) => (
               <MagneticButton key={social.name}>
-                <a 
+                <a
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
@@ -217,24 +217,57 @@ export default function Hero() {
 
         {/* Right Content - Portrait & Floating Code */}
         <div className="relative flex justify-center lg:justify-end z-10 lg:col-span-5 mt-16 lg:mt-0 hero-anim">
-          
+
           {/* Subtle background glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-dusty-denim/20 to-transparent blur-[80px] -z-10 rounded-full pointer-events-none" />
 
-          {/* Main Portrait Card */}
-          <SpotlightCard className="w-full max-w-[22rem] lg:max-w-[25rem] aspect-[3/4] p-2 flex flex-col group relative z-20">
-             <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0f1d] border border-white/5">
-                <img 
-                  src="https://i.ibb.co.com/nMX5F3d8/Gemini-Generated-Image-agmabeagmabeagma.png" 
-                  alt="Avinash Sinha" 
+          {/* Portrait Wrapper (No overflow-hidden so badges can overhang) */}
+          <div className="relative w-full max-w-[22rem] lg:max-w-[25rem] aspect-[3/4]">
+            
+            {/* Main Portrait Card */}
+            <SpotlightCard className="w-full h-full p-2 flex flex-col group relative z-20">
+              <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0f1d] border border-white/5">
+                <img
+                  src="https://i.ibb.co.com/nMX5F3d8/Gemini-Generated-Image-agmabeagmabeagma.png"
+                  alt="Avinash Sinha"
                   className="w-full h-full object-cover filter contrast-[1.05] brightness-95 transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-             </div>
-          </SpotlightCard>
+              </div>
+            </SpotlightCard>
+
+            {/* Premium Circular Status Stamp */}
+            <div className="absolute -top-6 -right-6 lg:-top-8 lg:-right-8 z-30 pointer-events-none">
+              <div className="relative flex items-center justify-center w-28 h-28 rounded-full bg-[#0a0f1d]/60 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-500 pointer-events-auto cursor-pointer">
+                
+                {/* Rotating Text Ring */}
+                <div className="absolute inset-0 animate-[spin_15s_linear_infinite]">
+                  {"AVAILABLE FOR WORK • HIRE ME NOW • ".split("").map((char, i, arr) => (
+                    <span
+                      key={i}
+                      className="absolute left-1/2 top-2 text-[10px] font-mono font-bold text-white/70 uppercase"
+                      style={{
+                        transformOrigin: "50% 48px",
+                        transform: `translateX(-50%) rotate(${i * (360 / arr.length)}deg)`
+                      }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Center Glowing Dot */}
+                <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0a0f1d]/90 border border-white/5 shadow-inner">
+                  <div className="absolute w-full h-full rounded-full bg-green-500/20 animate-ping opacity-60"></div>
+                  <div className="w-3.5 h-3.5 rounded-full bg-green-500 shadow-[0_0_15px_rgba(34,197,94,1)]"></div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
 
           {/* Floating Code Snippet Overlay */}
-          <motion.div 
+          <motion.div
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -248,13 +281,13 @@ export default function Hero() {
                 <div className="w-3 h-3 rounded-full bg-green-500/80 border border-green-500/50" />
               </div>
               <div className="ml-auto flex items-center gap-2">
-                 <TerminalSquare size={12} className="text-white/40" />
-                 <span className="text-[11px] text-white/50 font-mono tracking-wider">developer.ts</span>
+                <TerminalSquare size={12} className="text-white/40" />
+                <span className="text-[11px] text-white/50 font-mono tracking-wider">developer.ts</span>
               </div>
             </div>
             <div className="p-3 md:p-4 text-[10px] md:text-[12px] font-mono leading-[1.7] w-full relative h-[145px]">
               <AnimatePresence mode="wait">
-                <motion.div 
+                <motion.div
                   key={codeKey}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -275,7 +308,7 @@ export default function Hero() {
                       </motion.div>
                     </div>
                   ))}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 + (codeLines.length * 0.3) }}
@@ -289,21 +322,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Floating Availability Badge */}
-          <motion.div 
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="absolute -right-2 lg:-right-8 top-16 bg-[#0a0f1d]/80 backdrop-blur-xl border border-white/10 p-3 rounded-2xl shadow-2xl flex items-center gap-3 z-30"
-          >
-            <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            </div>
-            <div className="flex flex-col pr-2">
-              <span className="text-[10px] text-white/50 font-medium uppercase tracking-wider">Status</span>
-              <span className="text-xs font-bold text-white">Available</span>
-            </div>
-          </motion.div>
+
         </div>
       </div>
     </section>
