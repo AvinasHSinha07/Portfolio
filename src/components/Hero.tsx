@@ -222,17 +222,23 @@ export default function Hero() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-dusty-denim/20 to-transparent blur-[80px] -z-10 rounded-full pointer-events-none" />
 
           {/* Portrait Wrapper (No overflow-hidden so badges can overhang) */}
-          <div className="relative w-full max-w-[22rem] lg:max-w-[25rem] aspect-[3/4]">
+          <div className="relative w-full max-w-[22rem] lg:max-w-[25rem] aspect-[4/5] lg:aspect-[3/4]">
             
             {/* Main Portrait Card */}
-            <SpotlightCard className="w-full h-full p-2 flex flex-col group relative z-20">
-              <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0f1d] border border-white/5">
+            <SpotlightCard className="w-full h-full p-2.5 flex flex-col group relative z-20 rounded-[2.5rem] bg-white/[0.02] border-white/10">
+              <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-[#0a0f1d] shadow-inner">
                 <img
                   src="https://i.ibb.co.com/nMX5F3d8/Gemini-Generated-Image-agmabeagmabeagma.png"
                   alt="Avinash Sinha"
-                  className="w-full h-full object-cover filter contrast-[1.05] brightness-95 transition-transform duration-1000 group-hover:scale-105"
+                  className="w-full h-full object-cover filter contrast-[1.1] brightness-[0.85] saturate-[0.6] transition-all duration-700 group-hover:scale-105 group-hover:saturate-100 group-hover:brightness-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                
+                {/* Premium Cinematic Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-transparent opacity-90 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/60 via-transparent to-transparent opacity-80 pointer-events-none" />
+                
+                {/* Inner Glass Ring */}
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] pointer-events-none" />
               </div>
             </SpotlightCard>
 
