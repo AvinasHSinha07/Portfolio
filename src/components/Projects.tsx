@@ -16,8 +16,8 @@ const projects = [
     image: "https://i.ibb.co.com/hPdYYJz/Foodhub.webp",
     shortDesc: "A complete food delivery platform with modern UI/UX.",
     tech: [
-      { name: "React", iconName: "react" }, 
-      { name: "Tailwind", iconName: "tailwindcss" }, 
+      { name: "React", iconName: "react" },
+      { name: "Tailwind", iconName: "tailwindcss" },
       { name: "Node.js", iconName: "nodejs" }
     ],
     fullDesc: "FOODHUB is a dynamic and responsive food ordering platform. It features an intuitive, appetizing user interface combined with robust backend services to handle ordering and delivery logistics smoothly.",
@@ -39,8 +39,8 @@ const projects = [
     image: "https://i.ibb.co.com/BvgP73R/Card-Trade.webp",
     shortDesc: "A dedicated platform for trading and collecting cards securely.",
     tech: [
-      { name: "Next.js", iconName: "nextjs2" }, 
-      { name: "Tailwind CSS", iconName: "tailwindcss" }, 
+      { name: "Next.js", iconName: "nextjs2" },
+      { name: "Tailwind CSS", iconName: "tailwindcss" },
       { name: "API Integration", icon: Database }
     ],
     fullDesc: "CardTrade provides a secure, sleek interface for enthusiasts to buy, sell, and trade collectible cards. The application is built with speed in mind and boasts an intuitive layout for exploring vast catalogs of cards.",
@@ -62,8 +62,8 @@ const projects = [
     image: "https://i.ibb.co.com/BHq1Fd8C/Immigration.webp",
     shortDesc: "A professional and accessible immigration consulting portal.",
     tech: [
-      { name: "React", iconName: "react" }, 
-      { name: "GSAP", icon: Globe }, 
+      { name: "React", iconName: "react" },
+      { name: "GSAP", icon: Globe },
       { name: "Tailwind CSS", iconName: "tailwindcss" }
     ],
     fullDesc: "An elegant, trust-inspiring website crafted for an immigration consultancy. The site focuses on clear navigation, accessibility, and providing users with critical information effortlessly.",
@@ -85,8 +85,8 @@ const projects = [
     image: "https://i.ibb.co.com/DPY6rqyS/EURO-CCTV-CONSULTATION.webp",
     shortDesc: "A high-conversion consultation landing page for security solutions.",
     tech: [
-      { name: "Next.js", iconName: "nextjs2" }, 
-      { name: "Framer Motion", iconName: "framer" }, 
+      { name: "Next.js", iconName: "nextjs2" },
+      { name: "Framer Motion", iconName: "framer" },
       { name: "Tailwind CSS", iconName: "tailwindcss" }
     ],
     fullDesc: "A targeted redesign of the Euro TSI CCTV Consultation page to significantly boost engagement and conversion rates. The page uses authoritative styling, clear calls-to-action, and optimized loading speeds.",
@@ -108,8 +108,8 @@ const projects = [
     image: "https://i.ibb.co.com/xt2rhxbd/Tesla-Page.webp",
     shortDesc: "An immersive, high-end conceptual redesign of the Tesla homepage.",
     tech: [
-      { name: "React", iconName: "react" }, 
-      { name: "Three.js", icon: Cloud }, 
+      { name: "React", iconName: "react" },
+      { name: "Three.js", icon: Cloud },
       { name: "GSAP", icon: Globe }
     ],
     fullDesc: "A conceptual redesign paying homage to Tesla's clean, futuristic brand. The project features heavy animation, stark contrasts, and immersive media components that mimic the aesthetic of modern electric vehicles.",
@@ -178,22 +178,21 @@ export default function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((proj) => (
-            <div 
-              key={proj.id} 
-              className="project-card group bg-white/[0.02] border border-white/5 rounded-4xl overflow-hidden flex flex-col h-full transform transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.04] hover:border-white/10 cursor-pointer" 
+            <div
+              key={proj.id}
+              className="project-card group bg-white/[0.02] border border-white/5 rounded-4xl overflow-hidden flex flex-col h-full transform transition-all duration-500 hover:-translate-y-2 hover:bg-white/[0.04] cursor-pointer"
               onClick={() => setSelectedProject(proj)}
             >
-              
+
               {/* Image Container with Scroll Animation on Hover */}
               <div className="relative h-64 overflow-hidden bg-[#0a0f1d] shrink-0">
                 <div className="absolute inset-0 bg-white/5 animate-pulse z-0" />
-                <img 
-                  src={proj.image} 
+                <img
+                  src={proj.image}
                   alt={proj.title}
-                  className="relative z-10 w-full object-cover transform transition-transform duration-[4s] ease-linear group-hover:translate-y-[calc(-100%+16rem)] h-[200%]"
+                  className="relative z-10 w-full h-auto min-h-full object-cover object-top transform-gpu will-change-transform transition-transform duration-[4s] ease-linear group-hover:translate-y-[calc(-100%+16rem)]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent z-20 pointer-events-none opacity-90" />
-                
+
                 <div className="absolute bottom-4 left-4 z-30">
                   <span className="px-3 py-1 bg-black/50 backdrop-blur-md text-xs font-semibold text-white rounded-full border border-white/10 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -211,7 +210,7 @@ export default function Projects() {
                 <p className="text-alabaster-grey/70 font-light text-sm mb-6 grow">
                   {proj.shortDesc}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-8">
                   {proj.tech.map((t, i) => (
                     <span key={i} className="flex items-center gap-1.5 text-xs font-medium text-alabaster-grey bg-white/5 px-2.5 py-1.5 rounded-md border border-white/5 transition-colors">
@@ -226,10 +225,10 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                
-                <button 
+
+                <button
                   onClick={(e) => { e.stopPropagation(); setSelectedProject(proj); }}
-                  className="w-full py-3 flex items-center justify-center gap-2 bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-[#020617] text-white rounded-xl transition-all duration-300 font-semibold mt-auto"
+                  className="w-full py-3 flex items-center justify-center gap-2 bg-white/5 border border-white/10 hover:bg-white hover:text-[#020617] text-white rounded-xl transition-all duration-300 font-semibold mt-auto"
                 >
                   View Details <Plus size={18} className="group-hover:rotate-90 transition-transform duration-300" />
                 </button>
@@ -242,15 +241,15 @@ export default function Projects() {
       {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6"
           >
             <div className="absolute inset-0 bg-[#020617]/90 backdrop-blur-md" onClick={() => setSelectedProject(null)} />
-            
-            <motion.div 
+
+            <motion.div
               initial={{ y: 50, scale: 0.95, opacity: 0 }}
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 20, scale: 0.95, opacity: 0 }}
@@ -260,25 +259,28 @@ export default function Projects() {
             >
               {/* Modal sticky header/close */}
               <div className="sticky top-0 right-0 z-50 flex justify-end p-4 pointer-events-none drop-shadow-lg">
-                 <button 
-                   onClick={() => setSelectedProject(null)}
-                   className="pointer-events-auto p-2 bg-white/10 backdrop-blur text-white rounded-full hover:bg-white hover:text-black transition-colors border border-white/10 shadow-xl"
-                 >
-                   <X size={20} />
-                 </button>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="pointer-events-auto p-2 bg-white/10 backdrop-blur text-white rounded-full hover:bg-white hover:text-black transition-colors border border-white/10 shadow-xl"
+                >
+                  <X size={20} />
+                </button>
               </div>
 
               {/* Modal Image */}
-              <div className="h-64 md:h-80 w-full relative -mt-16">
-                 <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-transparent to-transparent" />
+              <div className="h-64 md:h-80 w-full relative -mt-16 overflow-hidden group shrink-0">
+                <img 
+                  src={selectedProject.image} 
+                  alt={selectedProject.title} 
+                  className="w-full h-auto min-h-full object-cover object-top transform-gpu will-change-transform transition-transform duration-[4s] ease-linear group-hover:translate-y-[calc(-100%+16rem)] md:group-hover:translate-y-[calc(-100%+20rem)]" 
+                />
               </div>
 
               {/* Modal Content */}
-              <div className="p-6 md:p-10 -mt-10 relative z-10">
+              <div className="p-6 md:p-10 relative z-10">
                 <span className="text-white/50 font-semibold mb-2 block tracking-wider uppercase text-sm">{selectedProject.category}</span>
                 <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">{selectedProject.title}</h2>
-                
+
                 <div className="flex flex-wrap gap-4 mb-10">
                   <a href={selectedProject.github} className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl transition-colors border border-white/10 font-medium">
                     <Github size={18} /> Source Code
@@ -294,7 +296,7 @@ export default function Projects() {
                       <h4 className="text-xl font-display font-semibold text-white mb-3 border-b border-white/10 pb-2">Project Overview</h4>
                       <p className="text-alabaster-grey/80 font-light leading-relaxed text-lg">{selectedProject.fullDesc}</p>
                     </div>
-                    
+
                     <div>
                       <h4 className="text-xl font-display font-semibold text-white mb-3 border-b border-white/10 pb-2">Key Features</h4>
                       <ul className="space-y-3 mt-4">
@@ -336,7 +338,7 @@ export default function Projects() {
                     </div>
                   </div>
                 </div>
-                
+
               </div>
             </motion.div>
           </motion.div>

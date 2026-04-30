@@ -45,7 +45,7 @@ const SpotlightCard = ({ children, className = "" }: { children: React.ReactNode
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  
+
   useEffect(() => {
     let ctx = gsap.context(() => {
       gsap.from(".about-anim", {
@@ -60,7 +60,7 @@ export default function About() {
         ease: "power3.out"
       });
     }, sectionRef);
-    
+
     return () => ctx.revert();
   }, []);
 
@@ -68,33 +68,33 @@ export default function About() {
     <section id="about" className="py-32 relative overflow-hidden bg-[#020617]" ref={sectionRef}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-center">
-          
+
           <div className="lg:col-span-7 space-y-8 z-10">
             <div className="about-anim">
-               <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tight">
-                 Engineering with <br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-dusty-denim to-alabaster-grey">Precision.</span>
-               </h2>
+              <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tight">
+                Engineering with <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-dusty-denim to-alabaster-grey">Precision.</span>
+              </h2>
             </div>
-            
+
             <div className="space-y-6 text-alabaster-grey/70 text-lg leading-relaxed about-anim font-light">
               <p>
-                My programming journey began with a curiosity about how the web works. Today, I'm a passionate 
-                <span className="text-white font-medium"> Full Stack Engineer</span> with a sharp focus on 
+                My programming journey began with a curiosity about how the web works. Today, I'm a passionate
+                <span className="text-white font-medium"> Full Stack Engineer</span> with a sharp focus on
                 building scalable, visually stunning, and highly performant applications.
               </p>
               <p>
-                Having roots in <span className="text-white font-medium">frontend architecture</span>, 
-                I treat the browser as a canvas. I love pairing clean code with modern motion design to create 
+                Having roots in <span className="text-white font-medium">frontend architecture</span>,
+                I treat the browser as a canvas. I love pairing clean code with modern motion design to create
                 experiences that feel alive. But my expertise doesn't stop at the UI.
               </p>
               <p>
-                I am deeply experienced in <span className="text-white font-medium">backend development</span> and 
+                I am deeply experienced in <span className="text-white font-medium">backend development</span> and
                 data automation. From designing robust REST APIs to extracting complex data, I thrive on solving hard problems end-to-end.
               </p>
             </div>
           </div>
-          
+
           <div className="lg:col-span-5 grid grid-cols-2 gap-4 md:gap-6 z-10">
             {stats.map((stat, i) => (
               <div key={i} className="about-anim">
@@ -110,7 +110,7 @@ export default function About() {
               </div>
             ))}
           </div>
-          
+
         </div>
       </div>
     </section>
